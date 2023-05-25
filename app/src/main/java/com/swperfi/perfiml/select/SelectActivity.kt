@@ -5,11 +5,16 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.OpenableColumns
 import android.widget.Button
 import android.widget.Toast
+import androidx.documentfile.provider.DocumentFile
+import com.chaquo.python.Python
+import com.chaquo.python.android.AndroidPlatform
 import com.swperfi.perfiml.R
 import java.io.BufferedReader
+import java.io.File
 import java.io.InputStream
 import java.io.InputStreamReader
 
@@ -43,14 +48,27 @@ class SelectActivity : AppCompatActivity() {
                 val contentResolver = contentResolver
                 val inputStream = contentResolver.openInputStream(selectedFile)
                 if(isCsvValid(inputStream, "battery_power", "foreground_app")){
-                    val filename = getFileNameFromUri(selectedFile)
-                    Toast.makeText(this, "Arquivo" + filename, Toast.LENGTH_SHORT).show()
+                    val documentFile = DocumentFile.fromSingleUri(this, selectedFile)
+                    val filePath = documentFile?.uri?.path
+                    if (filePath != null) {
+                        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/Tucandeira/Logs/Dynamic/", getFileNameFromUri(selectedFile).toString())
+                        verificarCsv(csvFile.absolutePath)
+                    }
                 }
                 else{
                     Toast.makeText(this, "Arquivo Inválido!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun verificarCsv(file: String) {
+        if (!Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+        val python = Python.getInstance()
+        val result = python.getModule("main").callAttr("mediaCpu",file).toString()
+        Toast.makeText(this, "Resultado: $result", Toast.LENGTH_SHORT).show()
     }
 
     private fun isCsvValid(inputStream: InputStream?, vararg columns : String): Boolean {

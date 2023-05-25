@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -15,6 +16,26 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters "arm64-v8a"
+        }
+        python {
+            version "3.8"
+        }
+        python {
+            buildPython "C:/Users/romul/python/python.exe"
+        }
+        sourceSets {
+            main {
+                python.srcDir "src/main/python"
+            }
+        }
+        python{
+            pip {
+                install "https://chaquo.com/pypi-7.0/pandas/pandas-1.3.2-0-cp38-cp38-android_21_arm64_v8a.whl"
+            }
+        }
     }
 
     buildTypes {
