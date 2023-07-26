@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TucanPy</string>
+    <string name="app_name">DataOwl</string>
     <string name="passo_1">SciKit Method</string>
     <string name="selecione_o_seu_arquivo">Choose CSV File</string>
 </resources>

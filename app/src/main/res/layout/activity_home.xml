@@ -1,29 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginHorizontal="24dp"
+    android:background="#E5F0F9"
+    android:paddingVertical="16dp"
     tools:context=".home.HomeActivity">
 
-    <Button
-        android:id="@+id/btnCsv"
-        android:text="Check CSV File"
-        android:paddingVertical="16dp"
-        android:layout_marginTop="32dp"
+    <ImageView
+        android:id="@+id/home_icon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_icon"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <ImageView
+        android:id="@+id/home_title"
+        android:layout_width="270dp"
+        android:layout_height="94dp"
+        android:src="@drawable/ic_title"
+        android:layout_marginTop="56dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_icon" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
+        android:src="@drawable/ic_tree"
+        app:layout_constraintTop_toTopOf="@id/gl"
+        app:layout_constraintBottom_toBottomOf="@id/gl" />
 
-    <Button
-        android:id="@+id/btnBug"
-        android:text="Check Bug Report"
-        android:layout_marginTop="16dp"
-        android:paddingVertical="16dp"
+    <LinearLayout
+        android:id="@+id/home_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="HardcodedText" />
+        android:paddingHorizontal="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/btnCsv"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:background="@drawable/button_border"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_csv"
+                android:layout_width="0dp"
+                android:layout_height="24dp"/>
+
+            <TextView
+                android:layout_weight="0.6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tucandeira CSV Files"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#306998"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                android:src="@drawable/baseline_chevron_right_24"
+                android:layout_height="24dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnBug"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:background="@drawable/button_border"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_weight="0.2"
+                android:src="@drawable/baseline_bug_report_24"
+                android:layout_width="0dp"
+                android:layout_height="24dp"/>
+
+            <TextView
+                android:layout_weight="0.6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bug Report Analysis"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#306998"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                android:src="@drawable/baseline_chevron_right_24"
+                android:layout_height="24dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

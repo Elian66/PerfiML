@@ -15,12 +15,15 @@ import android.provider.OpenableColumns
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import com.github.mikephil.charting.BuildConfig
@@ -32,13 +35,18 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.swperfi.perfiml.R
+import com.swperfi.perfiml.adapter.ItemAdapter
+import com.swperfi.perfiml.model.Item
 import java.io.*
 
 class SelectActivity : AppCompatActivity() {
 
     private var chart: HorizontalBarChart? = null
     private var chartView: ConstraintLayout? = null
+    private var layoutList: LinearLayout?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +56,7 @@ class SelectActivity : AppCompatActivity() {
 
         val reloadButton: Button = findViewById<Button>(com.swperfi.perfiml.R.id.reloadButton)
         val button: Button = findViewById(com.swperfi.perfiml.R.id.selecioneArquivo)
+        layoutList = findViewById(R.id.layoutList)
         chart = findViewById<HorizontalBarChart>(com.swperfi.perfiml.R.id.chart)
 
         reloadButton.setOnClickListener {
@@ -149,7 +158,6 @@ class SelectActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
             type = "*/*"
-
         }
         startActivityForResult(intent, 1)
     }
@@ -158,7 +166,6 @@ class SelectActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 1 && resultCode == Activity.RESULT_OK){
-
             val selectedFile = data?.data
             if(selectedFile != null){
                 val contentResolver = contentResolver
@@ -180,9 +187,21 @@ class SelectActivity : AppCompatActivity() {
 
     private fun verifyCsv(file: String) {
         if (!Python.isStarted()) Python.start(AndroidPlatform(this))
-        val python = Python.getInstance()
-        val result = python.getModule("main").callAttr("getInfluences", 0.2, file).toString()
-        saveTextToFile(result, "result.txt")
+        layoutList?.visibility = View.VISIBLE
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerMethods)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val inputStream: InputStream = resources.openRawResource(R.raw.tucanpython)
+        val jsonString = inputStream.bufferedReader().use { it.readText() }
+        val items: List<Item> = Gson().fromJson(jsonString, object : TypeToken<List<Item>>() {}.type)
+
+        val adapter = ItemAdapter(items, file)
+        recyclerView.adapter = adapter
+
+//        if (!Python.isStarted()) Python.start(AndroidPlatform(this))
+//        val python = Python.getInstance()
+//        val result = python.getModule("main").callAttr("getInfluences", 0.2, file).toString()
+//        saveTextToFile(result, "result.txt")
     }
 
     private fun saveTextToFile(text: String, fileName: String) {

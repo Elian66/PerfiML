@@ -1,0 +1,17 @@
+[
+	{
+		"function" : "getNullColumnsByDataset",
+		"name" : "Check Missing Values",
+		"behavior" : "text"
+	},
+	{
+		"function" : "getFeatureInfluenceInBatteryPower",
+		"name" : "Check Feature Influences",
+		"behavior" : "bar-graphic"
+	},
+	{
+		"function" : "getDeviceCollectPercentageInGeneral",
+		"name" : "Check Device Collect in General",
+		"behavior" : "pizza-graphic"
+	}
+]

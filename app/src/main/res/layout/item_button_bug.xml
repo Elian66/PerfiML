@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    android:background="@drawable/button_border"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_weight="0.2"
+        android:src="@drawable/baseline_bug_report_24"
+        android:layout_width="0dp"
+        android:layout_height="24dp"/>
+
+    <TextView
+        android:layout_weight="0.6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bug Report Analysis"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#306998"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:layout_weight="0.2"
+        android:layout_width="0dp"
+        android:src="@drawable/baseline_chevron_right_24"
+        android:layout_height="24dp"/>
+
+</LinearLayout>
