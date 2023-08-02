@@ -7,11 +7,11 @@
 	{
 		"function" : "getFeatureInfluenceInBatteryPower",
 		"name" : "Check Feature Influences",
-		"behavior" : "bar-graphic"
+		"behavior" : "bar"
 	},
 	{
 		"function" : "getDeviceCollectPercentageInGeneral",
 		"name" : "Check Device Collect in General",
-		"behavior" : "pizza-graphic"
+		"behavior" : "pizza"
 	}
 ]

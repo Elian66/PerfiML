@@ -195,7 +195,7 @@ class SelectActivity : AppCompatActivity() {
         val jsonString = inputStream.bufferedReader().use { it.readText() }
         val items: List<Item> = Gson().fromJson(jsonString, object : TypeToken<List<Item>>() {}.type)
 
-        val adapter = ItemAdapter(items, file)
+        val adapter = ItemAdapter(this, items, file)
         recyclerView.adapter = adapter
 
 //        if (!Python.isStarted()) Python.start(AndroidPlatform(this))

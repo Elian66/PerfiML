@@ -31,6 +31,8 @@ class ReportActivity : AppCompatActivity() {
 
         val button: Button = findViewById(R.id.selecioneArquivo)
 
+        File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/DataOwl/Report/").mkdirs()
+
         button.setOnClickListener {
             escolherArquivo()
         }
@@ -159,7 +161,7 @@ class ReportActivity : AppCompatActivity() {
             dadosWakeupReasonListPart1.add(dados)
         }
 
-        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/TucanPython/", "reason_wake_locks.csv")
+        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/DataOwl/Report/", "reason_wake_locks.csv")
         val fileWriter = FileWriter(csvFile)
         val csvWriter = CSVWriter(fileWriter)
 
@@ -224,7 +226,7 @@ class ReportActivity : AppCompatActivity() {
             dadosWakeList0.add(dados)
         }
 
-        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/TucanPython/", "partial_wake_locks.csv")
+        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/DataOwl/Report/", "partial_wake_locks.csv")
         val fileWriter = FileWriter(csvFile)
         val csvWriter = CSVWriter(fileWriter)
 
@@ -285,7 +287,7 @@ class ReportActivity : AppCompatActivity() {
             dadosWakeList0.add(dados)
         }
 
-        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/TucanPython/", "kernel_wake_locks.csv")
+        val csvFile = File(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/DataOwl/Report/", "kernel_wake_locks.csv")
         val fileWriter = FileWriter(csvFile)
         val csvWriter = CSVWriter(fileWriter)
 
@@ -301,7 +303,7 @@ class ReportActivity : AppCompatActivity() {
 
     private fun openFolder() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
-        val uri = Uri.parse(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/TucanPython/")
+        val uri = Uri.parse(Environment.getExternalStorageDirectory().path + "/Documents/SWPerfl/DataOwl/Report/")
         intent.data = uri
         intent.type = "text/csv"
 

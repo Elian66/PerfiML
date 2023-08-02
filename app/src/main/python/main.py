@@ -57,13 +57,13 @@ def getNullColumnsByDataset(file):
             nan_cols = df_dvc.columns[df_dvc.isnull().any()]
 
             if(len(nan_cols) > 0):
-                string += "As colunas a seguir apresentam NaN: "
+                string += "The following columns below presents NaN:\n  "
                 for col in nan_cols:
-                    string += col + ", "
+                    string += col + ",\n  "
             else:
-                string +=  "O dispositivo" + " " + str(dvc) + " " + "não apresenta valores ausentes.  "
+                string +=  "The device" + " " + str(dvc) + " " + "doesn't shows missing values.\n  "
         else:
-            string += "Foi detectado um device id null na coleta  "
+            string += "Was detected a null device id in the collect.\n  "
         string = string[:-2]
     return string
 
@@ -86,4 +86,7 @@ def getDeviceCollectPercentageInGeneral(file):
     data = [{'device_id': dvc, 'collected': str(round(100 * collected / df.shape[0], 2)) + "%"}
             for dvc, collected in len_devices]
     df2 = pd.DataFrame(data)
-    return df2
+    df2.reset_index(drop= 'index', inplace = True)
+    df2_str = df2.to_string(index=False)
+
+    return df2_str
